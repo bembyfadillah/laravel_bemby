@@ -3,34 +3,44 @@
 @section('title', 'Halaman Mahasiswa')
 @section('bread1', 'Mahasiswa')
 @section('bread2', 'Daftar')
-
-
 @section('content')
-<p> Daftar Mahasiswa </p>
-<table class="table table-striped" id="mhs-table">
-<thead>
-	<tr>
-		<th>No</th>
-		<th>NIM</th>
-		<th>Nama Lengkap</th>
-	</tr>
-</thead>
-<tbody></tbody>
-</table>
+    <h3>Master Data Mahasiswa</h3>
+    <p><a href="/mhs/create" class="btn btn-success btn-sm">Tambah</a></p>
 
-<script>
-	$(function () {
+    @include('layouts.alert')
 
-		var table = $('#mhs-table').DataTable({
-			processing: true,
-			serverSide: true,
-			ajax: "{{ route('mhs_list') }}",
-			columns: [
-				{data: 'DT_RowIndex', name: "DT_RowIndex"},
-				{data: 'nim', name: 'nim'},
-				{data: 'nama_lengkap', name: 'nama_lengkap'},
-				]
-			});
-	});
-</script>
+    <table class="table table-striped" id="mhs-table">
+    	<thead>
+    		<tr>
+    			<td>NO</td>
+    			<td>NIM</td>
+    			<td>Nama Lengkap</td>
+    			<td>Prodi</td>
+    			<td>Alamat</td> 
+    			<td>Pilihan</td>
+    		</tr>
+    	</thead>
+    	<tbody></tbody>
+    </table>
+
+    <script>
+  		$(function () {
+    
+	    	//var table = $('#mhs-table').DataTable({
+	    	$('#mhs-table').DataTable({
+	        	processing: true,
+		        serverSide: true,
+		        ajax: "{{ route('mhs.list') }}",
+		        columns: [
+		            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+		            { data: 'nim', name: 'nim' },
+		            { data: 'nama_lengkap', name: 'nama_lengkap' },
+		            { data: 'mprodi.nama_prodi', name: 'nama_prodi' },
+		            { data: 'alamat', name: 'alamat' },
+            		{ data: 'action', name: 'action', orderable: false, searchable: false }
+		        ]
+	    	});
+    
+  		});
+	</script>
 @endsection
